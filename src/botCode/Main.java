@@ -1,10 +1,10 @@
 package botCode;
 
+import botCode.impl.WowsInfosImpl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import pic.Getpic;
 import pic.pic;
-import pic.BufferPic;
 
 import java.util.Base64;
 import java.util.concurrent.TimeUnit;
@@ -113,6 +113,8 @@ public class Main {
 	 * @param data
 	 */
 	public static void receiveGroupMessages(String data){
+
+
 		System.out.println("[收到群聊消息]" + data);
 		try{
 			JSONObject json = JSONObject.parseObject(data);
@@ -192,6 +194,10 @@ public class Main {
 				Core.sendGroupMessagesPicText(selfQQ, fromGroup,"[netpic:"+picurl+"]",0);
 			}else if (fromGroup == 7){
 				Core.sendGroupMessages(selfQQ,fromGroup,msg,0);
+			}else if (msg.startsWith("查水表")){
+				WowsInfosImpl wowsInfos = new WowsInfosImpl();
+				String[] msgSplit = msg.split( " ");
+				String uid = wowsInfos.getUserId(msgSplit[1]);
 			}
 
 		}catch (Exception e) {
