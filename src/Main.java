@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import pic.Getpic;
 import pic.pic;
 import pic.BufferPic;
+import wows.Playerpackage;
+import wows.WowsInfosImpl;
 
 import java.util.Base64;
 import java.util.concurrent.TimeUnit;
@@ -93,6 +95,10 @@ public class Main {
 					Core.sendPrivateMessagesPicText(selfQQ, fromQQ,"[netpic:"+picurl+"]",random,req);
 				}else if(msg.equals("语音")){
 					Core.uploadAudioSync(selfQQ, 1, fromQQ, "C:\\Users\\Admin\\Desktop\\13203.mp3");
+				}else if (msg.indexOf("查水表") == 0) {
+					Playerpackage playerpackage = new Playerpackage(msg);
+					Core.sendGroupMessages(selfQQ, fromQQ, playerpackage.getSpackage(), 0);
+					Core.sendGroupMessages(selfQQ, fromQQ, "最后的图片显示需要手动开启~", 0);
 				}
 				else {
 					Core.sendPrivateMessages(selfQQ, fromQQ, msg, random, req);
@@ -156,7 +162,7 @@ public class Main {
 				Core.sendGroupMessagesPicText(selfQQ, fromGroup, pack,0);
 			}else if (msg.indexOf("涩图组") == 0){
 				int num = Integer.parseInt(msg.substring(msg.indexOf("涩图组") + 3));
-				if (num >10){
+				if (num >5){
 					Core.sendGroupMessages(selfQQ,fromGroup,"贪心，只给你一张图~",0);
 					num=1;
 				}
@@ -191,6 +197,12 @@ public class Main {
 				Core.sendGroupMessages(selfQQ,fromGroup,"嗯哼~",0);
 			}else if (fromGroup == 7){
 				Core.sendGroupMessages(selfQQ,fromGroup,msg,0);
+			}else if (msg.indexOf("查水表") == 0){
+				Playerpackage playerpackage = new Playerpackage(msg);
+				Core.sendGroupMessages(selfQQ,fromGroup,playerpackage.getSpackage(),0);
+				Core.sendGroupMessages(selfQQ,fromGroup,"最后的图片显示需要手动开启~",0);
+				System.out.println(playerpackage.getPic());
+				Core.sendGroupMessagesPicText(selfQQ, fromGroup, playerpackage.getPic(), 0);
 			}
 
 		}catch (Exception e) {

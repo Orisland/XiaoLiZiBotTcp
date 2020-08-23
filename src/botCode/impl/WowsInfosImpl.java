@@ -20,7 +20,7 @@ public class WowsInfosImpl implements WowsInfos {
 
         WowsInfosImpl tst = new WowsInfosImpl();
 
-        String msg = "查水表 lsahi";
+            String msg = "查水表 Orisland_EX";
         String[] msgSplit = msg.split( " ");
 
         String uid = tst.getUserId(msgSplit[1]);
@@ -103,11 +103,13 @@ public class WowsInfosImpl implements WowsInfos {
 
         Long battles = pvpStatus.getLongValue("battles");
         Long survivedBattles = pvpStatus.getLongValue("survived_battles");
+        Long max_xp = pvpStatus.getLongValue("max_xp");
 
         String res =
                 "查询玩家信息" + nickname + "\n"
                 + "总场数" + battles +"\n"
-                + "存活场数" + survivedBattles + "\n";
+                + "存活场数" + survivedBattles + "\n"
+                + "单场最大经验数"+max_xp + "\n";
 
         return res;
     }

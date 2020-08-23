@@ -69,8 +69,8 @@ public class Getpic {
             URL url = new URL(path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setConnectTimeout(5*1000);
-            conn.setReadTimeout(5*1000);
+            conn.setConnectTimeout(10*1000);
+            conn.setReadTimeout(10*1000);
             conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
             System.out.println("来了来了2");
 
