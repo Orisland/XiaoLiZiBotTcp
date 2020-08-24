@@ -1,4 +1,4 @@
-package botCode;
+package wows.bot;
 
 import com.alibaba.fastjson.JSONObject;
 

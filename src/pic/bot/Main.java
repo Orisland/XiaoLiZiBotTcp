@@ -1,13 +1,11 @@
+package pic.bot;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import pic.Getpic;
 import pic.pic;
-import pic.BufferPic;
 import wows.Playerpackage;
-import wows.WowsInfosImpl;
+import pic.Getpic;
 
-import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 
@@ -69,38 +67,11 @@ public class Main {
 			}else if(msgType == 87){//好友邀请入群
 
 			}else if(msgType == 166){//普通好友消息
-				if(msg.equals("点赞")){
-					Core.callpPraise(selfQQ,fromQQ,10);
-				}else if(msg.equals("来个红包")){
-					Core.pushRedPacket(selfQQ,fromQQ,1,1,"好的大哥","支付密码");//如果发送不成功请登录机器人号确保可以正常发红包
-				}else if(msg.equals("图文")){
-					byte[] bts = StringUtils.readFile("D:\\1.png");//读取文件
-					String base64Str = Base64.getEncoder().encodeToString(bts);//字节数组转Base64
-					base64Str = "[pic:"+ base64Str + "]";//组装图片的格式
-					Core.sendPrivateMessagesPicText(selfQQ, fromQQ, base64Str + "111" + base64Str, random, req);
-				}else if(msg.equals("好友列表")){
-					Core.friendsList(selfQQ);
-				}else if(msg.equals("群列表")){
-					Core.groupList(selfQQ);
-				}else if(msg.equals("插件数据目录")){
-					Core.selectPluginPath();
-				}else if(msg.indexOf("输出日志") == 0){
-					String log = msg.substring(msg.indexOf("输出日志") + 4);//取出右边要踢的QQ
-					Core.outputLog(log, 0, 16777215);
-				}else if(msg.equals("图文2")){
-//					byte[] bts = StringUtils.readFile("C:\\Users\\Orisland\\Pictures\\QQ图片20200713123149.jpg");//读取文件
-//					String base64Str = Base64.getEncoder().encodeToString(bts);//字节数组转Base64
-//					Core.uploadPic(selfQQ, 1, fromQQ, 0, base64Str);
-					String picurl = "https://i.pixiv.cat/img-original/img/2017/06/13/19/15/53/63366945_p0.jpg";
-					Core.sendPrivateMessagesPicText(selfQQ, fromQQ,"[netpic:"+picurl+"]",random,req);
-				}else if(msg.equals("语音")){
-					Core.uploadAudioSync(selfQQ, 1, fromQQ, "C:\\Users\\Admin\\Desktop\\13203.mp3");
-				}else if (msg.indexOf("查水表") == 0) {
-					Playerpackage playerpackage = new Playerpackage(msg);
-					Core.sendGroupMessages(selfQQ, fromQQ, playerpackage.getSpackage(), 0);
-					Core.sendGroupMessages(selfQQ, fromQQ, "最后的图片显示需要手动开启~", 0);
+				if (msg.equals("test")) {
+					Core.sendPrivateMessages(selfQQ,fromQQ,"测试有效",random,req);
 				}
 				else {
+					msg += "~";
 					Core.sendPrivateMessages(selfQQ, fromQQ, msg, random, req);
 				}
 			}
@@ -126,33 +97,7 @@ public class Main {
 			long fromQQ = json.getInteger("fromQQ");//对方QQ
 			String msg = json.getString("msg");//消息内容
 			//这里我写了一些常用指令
-			if(msg.indexOf("改名片") == 0){//默认改自己的 如  改名片404
-				String cardName = msg.substring(msg.indexOf("改名片") + 3);//取出右边的名片
-				Core.setGroupCardName(selfQQ, fromGroup, fromQQ, cardName);
-			}else if(msg.indexOf("踢") == 0){//右边需要加上要踢的QQ 如 踢123456
-				String otherQQ = msg.substring(msg.indexOf("踢") + 1);//取出右边要踢的QQ
-				Core.delGroupMember(selfQQ, fromGroup, Integer.valueOf(otherQQ), 0);
-			}else if(msg.indexOf("禁言") == 0){//右边需要加上要禁言的QQ 如 禁言123456
-				String otherQQ = msg.substring(msg.indexOf("禁言") + 2);//取出右边要禁言的QQ
-				Core.prohibitSpeak(selfQQ, fromGroup, Integer.valueOf(otherQQ), 60);
-			}else if(msg.equals("图文")){
-				byte[] bts = StringUtils.readFile("D:\\1.png");//读取文件
-				String base64Str = Base64.getEncoder().encodeToString(bts);//字节数组转Base64
-				base64Str = "[pic:"+ base64Str + "]";//组装图片的格式
-				Core.sendGroupMessagesPicText(selfQQ, fromGroup, base64Str + "111",0);
-			}else if(msg.equals("来个红包")){
-				Core.pushRedPacketGroup(selfQQ,fromGroup,1,1,"好的大哥","支付密码");//如果发送不成功请登录机器人号确保可以正常发红包
-			}else if(msg.equals("全员禁言")){
-				Core.prohibitSpeakAll(selfQQ, fromGroup, 1);
-			}else if(msg.equals("全员解禁")){
-				Core.prohibitSpeakAll(selfQQ, fromGroup, 0);
-			}else if(msg.equals("群信息")){
-				Core.selectGroupInfo(selfQQ, fromGroup);
-			}else if(fromGroup == 0){//除了以上三个指令 其他的都原样返回  这里的群号需要改成你的测试群
-				Core.sendGroupMessages(selfQQ, fromGroup, msg, 0);
-			}else if (msg.equals("test1")){
-				Core.sendGroupMessages(selfQQ,fromGroup,"ceshi",0);
-			}else if (msg.equals("setu")){
+			if (msg.equals("setu")){
 				pic pic = Getpic.doGet("https://api.lolicon.app/setu/?apikey=232368045f2bc262c4e5e4&size1200=true", "");
 				String url = "[netpic:"+ pic.getUrl() + "]";
 				String picPid = "图片id："+pic.getPid();
@@ -181,32 +126,12 @@ public class Main {
 					TimeUnit.SECONDS.sleep(5);
 				}
 				Core.sendGroupMessages(selfQQ,fromGroup,"setu已发送完成，显示多少听天由命~",0);
-//				pic[] pics = Getpic.doGet(num);
-//				for (int i=0; i<pics.length; i++){
-//					pics[i].base64 = "[netpic:"+ pics[i].getUrl() + "]";
-//					String picPid = "图片id："+pics[i].getPid();
-//					String picurl = "图片url："+pics[i].getUrl();
-//					String picwriter = "作者："+pics[i].getAuthor();
-//					String pack = pics[i].base64+"\n"+picPid+"\n"+picwriter+"\n"+picurl;
-//					int y = i+1;
-//					pack = "第"+y+"张setu来了~"+"\n"+pack;
-//					Core.sendGroupMessagesPicText(selfQQ, fromGroup, pack,0);
-//					System.out.println("第"+i+"张setu发送完成,有没有听天由命.");
-//				}
 			}else if (msg.equals("发完了吗")){
 				Core.sendGroupMessages(selfQQ,fromGroup,"嗯哼~",0);
-			}else if (fromGroup == 7){
-				Core.sendGroupMessages(selfQQ,fromGroup,msg,0);
-			}else if (msg.indexOf("查水表") == 0){
-				Core.sendGroupMessages(selfQQ,fromGroup,"正在尝试获取数据~请稍后~",0);
-				Playerpackage playerpackage = new Playerpackage(msg);
-				Core.sendGroupMessages(selfQQ,fromGroup,playerpackage.getSpackage(),0);
-				Core.sendGroupMessages(selfQQ,fromGroup,"最后的图片显示需要手动开启~",0);
-				System.out.println(playerpackage.getPic());
-				Core.sendGroupMessagesPicText(selfQQ, fromGroup, playerpackage.getPic(), 0);
 			}
 
 		}catch (Exception e) {
+
 			System.out.println("[群聊数据异常]");
 		}
 		//134	上传群文件

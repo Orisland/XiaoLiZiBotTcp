@@ -1,4 +1,4 @@
-package botCode;
+package Bot_test;
 
 public interface WowsInfos {
 

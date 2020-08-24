@@ -1,4 +1,4 @@
-package botCode;
+package pic.bot;
 
 import com.alibaba.fastjson.JSONObject;
 

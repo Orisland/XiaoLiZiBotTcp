@@ -1,6 +1,6 @@
-package botCode;
+package Bot_test;
 
-import botCode.impl.WowsInfosImpl;
+import Bot_test.impl.WowsInfosImpl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import pic.Getpic;

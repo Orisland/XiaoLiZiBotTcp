@@ -1,4 +1,4 @@
-package botCode.pojo;
+package Bot_test.pojo;
 
 public class WowsApiConfig {
 

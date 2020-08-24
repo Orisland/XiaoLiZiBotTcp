@@ -1,4 +1,4 @@
-package botCode;
+package Bot_test;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,6 +1,6 @@
 package wows;
 
-import botCode.HttpUtil;
+import Bot_test.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
 
 import java.text.DecimalFormat;
@@ -138,12 +138,13 @@ public class WowsInfosImpl implements WowsInfos {
         Long torpedoes_max_frags_battle = pvpStatus.getJSONObject("torpedoes").getLongValue("max_frags_battle");    //单场鱼雷击杀
         Long torpedoes_max_frags_ship_id = pvpStatus.getJSONObject("torpedoes").getLongValue("max_frags_ship_id");    //单场鱼雷击杀id
         String name_torpedoes_max_frags_ship_id = getShipInfo(torpedoes_max_frags_ship_id);                             //船名字
-        //System.out.println(name_torpedoes_max_frags_ship_id);
 
         Long cv_max_frags_battle = pvpStatus.getJSONObject("aircraft").getLongValue("max_frags_battle");    //单场击杀最高
         Long cv_max_frags_ship_id = pvpStatus.getJSONObject("aircraft").getLongValue("max_frags_ship_id");  //当场最高击杀船只
-        String name_cv_max_frags_ship_id = getShipInfo(cv_max_frags_ship_id);                                   //船名字
-        //System.out.println(name_cv_max_frags_ship_id);
+        String name_cv_max_frags_ship_id = "你莫得cv~";
+        if (cv_max_frags_ship_id != 0){
+            name_cv_max_frags_ship_id = getShipInfo(cv_max_frags_ship_id);                                   //船名字
+        }
 
         Long max_single_kill = pvpStatus.getLongValue("max_frags_battle");                                  //最大单杀
         Long max_frags_boat_id = pvpStatus.getJSONObject("main_battery").getLongValue("max_frags_ship_id"); //最大击杀id
@@ -171,7 +172,6 @@ public class WowsInfosImpl implements WowsInfos {
         KD = Double.parseDouble(df.format(KD));
         win_rate = Double.parseDouble(df.format(win_rate)) * 100;
         win_servived_rate = Double.parseDouble(df.format(win_servived_rate)) * 100;
-
         player player = new player();
         player.max_xp_ship_id = max_xp_ship_id;
         player.name_max_xp_ship_id = name_max_xp_ship_id;

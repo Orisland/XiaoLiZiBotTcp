@@ -1,8 +1,8 @@
-package botCode.impl;
+package Bot_test.impl;
 
-import botCode.HttpUtil;
-import botCode.WowsInfos;
-import botCode.pojo.WowsApiConfig;
+import Bot_test.HttpUtil;
+import Bot_test.WowsInfos;
+import Bot_test.pojo.WowsApiConfig;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
