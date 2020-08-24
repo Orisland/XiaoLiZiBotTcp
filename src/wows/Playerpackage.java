@@ -3,7 +3,7 @@ package wows;
 //组装信息
 
 public class Playerpackage {
-    String spackage;
+    String spackage = "";
     String pic;
     public Playerpackage(String msg){
         WowsInfosImpl tst = new WowsInfosImpl();

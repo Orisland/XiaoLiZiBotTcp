@@ -3,11 +3,12 @@ package pic;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
+
+import pic.bot.setuMain;
 
 
 import com.alibaba.fastjson.*;
+import pic.bot.Core;
 
 public class Getpic {
     
@@ -69,8 +70,8 @@ public class Getpic {
             URL url = new URL(path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setConnectTimeout(10*1000);
-            conn.setReadTimeout(10*1000);
+            conn.setConnectTimeout(15*1000);
+            conn.setReadTimeout(15*1000);
             conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
             System.out.println("来了来了2");
 
@@ -95,6 +96,7 @@ public class Getpic {
             is.close();
         }
         catch (Exception e){
+            Core.sendGroupMessages(setuMain.selfQQ, setuMain.fromGroup,"拉取数据超时，请重试~",0);
             e.printStackTrace();
         }finally {
             try {

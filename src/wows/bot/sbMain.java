@@ -16,7 +16,10 @@ import java.util.concurrent.TimeUnit;
  *
  * 2020年8月10日 下午5:07:37
  */
-public class Main {
+public class sbMain {
+	public static long selfQQ=0;
+	public static long fromGroup=0;
+	public static long fromQQ=0;
 
 	/**
 	 * 程序简介
@@ -46,8 +49,6 @@ public class Main {
 		System.out.println("[收到好友消息]" + data);
 		try{
 			JSONObject json = JSONObject.parseObject(data);
-			long selfQQ = json.getInteger("selfQQ");//框架QQ
-			long fromQQ = json.getInteger("fromQQ");//对方QQ
 			long random = json.getInteger("random");//撤回消息用
 			long req = json.getInteger("req");//撤回消息用
 			String msg = json.getString("msg");//消息内容
@@ -93,15 +94,16 @@ public class Main {
 		System.out.println("[收到群聊消息]" + data);
 		try{
 			JSONObject json = JSONObject.parseObject(data);
-			long selfQQ = json.getInteger("selfQQ");//框架QQ
-			long fromGroup = json.getInteger("fromGroup");//群号
-			long fromQQ = json.getInteger("fromQQ");//对方QQ
+			selfQQ = json.getInteger("selfQQ");//框架QQ
+			fromQQ = json.getInteger("fromQQ");//对方QQ
+			fromGroup = json.getInteger("fromGroup");//群号
 			String msg = json.getString("msg");//消息内容
 			//这里我写了一些常用指令
 			if (msg.indexOf("查水表") == 0){
 				Core.sendGroupMessages(selfQQ,fromGroup,"正在尝试获取数据~请稍后~",0);
 				Playerpackage playerpackage = new Playerpackage(msg);
-				Core.sendGroupMessages(selfQQ,fromGroup,playerpackage.getSpackage(),0);
+				String atqq = "[@"+fromQQ+"]来了来了~" + "\r";
+				Core.sendGroupMessages(selfQQ,fromGroup,atqq + playerpackage.getSpackage(),0);
 				Core.sendGroupMessages(selfQQ,fromGroup,"最后的图片显示需要手动开启~",0);
 				System.out.println(playerpackage.getPic());
 				Core.sendGroupMessagesPicText(selfQQ, fromGroup, playerpackage.getPic(), 0);
@@ -122,8 +124,8 @@ public class Main {
 		System.out.println("[收到事件消息]" + data);
 		try{
 			JSONObject json = JSONObject.parseObject(data);
-			long selfQQ = json.getInteger("selfQQ");//框架QQ
-			long fromGroup = json.getInteger("fromGroup");//群号
+			selfQQ = json.getInteger("selfQQ");//框架QQ
+			fromGroup = json.getInteger("fromGroup");//群号
 			int msgType = json.getInteger("msgType");//类型
 			long triggerQQ = json.getInteger("triggerQQ");//对方QQ
 			//String triggerQQName = json.getString("triggerQQName");//对方昵称

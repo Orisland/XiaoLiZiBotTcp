@@ -73,13 +73,13 @@ public class ChatClient extends Thread{
 		if(json.getInteger("type") == 0){//连接成功
 			System.out.println("[连接成功]");
 		}else if(json.getInteger("type") == 1){//好友消息
-			Main.receivePrivateMessages(json.toJSONString());
+			setuMain.receivePrivateMessages(json.toJSONString());
 		}else if(json.getInteger("type") == 2){//群聊消息
-			Main.receiveGroupMessages(json.toJSONString());
+			setuMain.receiveGroupMessages(json.toJSONString());
 		}else if(json.getInteger("type") == 3){//事件消息
-			Main.receiveEventMessages(json.toJSONString());
+			setuMain.receiveEventMessages(json.toJSONString());
 		}else if(json.getInteger("type") == 4){//查询返回
-			Main.selectResult(json.toJSONString());
+			setuMain.selectResult(json.toJSONString());
 		}
 		
     }

@@ -27,7 +27,7 @@ public class Core {
 		json.put("msg", msg);
 		json.put("random", random);
 		json.put("req", req);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	/**
 	 * 发送私聊Json消息
@@ -45,7 +45,7 @@ public class Core {
 		json.put("msg", msg);
 		json.put("random", random);
 		json.put("req", req);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	/**
 	 * 发送私聊图文消息
@@ -63,7 +63,7 @@ public class Core {
 		json.put("msg", msg);
 		json.put("random", random);
 		json.put("req", req);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	/**
 	 * 处理好友验证事件
@@ -79,7 +79,7 @@ public class Core {
 		json.put("fromQQ", fromQQ);
 		json.put("seq", seq);
 		json.put("status", status);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	/**
 	 * QQ点赞
@@ -92,7 +92,7 @@ public class Core {
 		json.put("selfQQ", selfQQ);
 		json.put("fromQQ", fromQQ);
 		json.put("number", number);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	/**
 	 * 发送好友红包
@@ -112,7 +112,7 @@ public class Core {
 		json.put("balance", balance);
 		json.put("payPwd", payPwd);
 		json.put("msg", msg);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -123,7 +123,7 @@ public class Core {
 		JSONObject json = new JSONObject();
 		json.put("type", 107);
 		json.put("selfQQ", selfQQ);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -142,7 +142,7 @@ public class Core {
 		json.put("random", random);
 		json.put("req", req);
 		json.put("time", time);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -155,7 +155,7 @@ public class Core {
 		json.put("type", 109);
 		json.put("selfQQ", selfQQ);
 		json.put("fromQQ", fromQQ);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	
@@ -177,7 +177,7 @@ public class Core {
 		json.put("fromGroup", fromGroup);
 		json.put("msg", msg);
 		json.put("anonymous", anonymous);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	/**
 	 * 发送群聊消息
@@ -192,7 +192,7 @@ public class Core {
 		json.put("selfQQ", selfQQ);
 		json.put("fromGroup", fromGroup);
 		json.put("anonymous", anonymous);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	/**
 	 * 发送群图文消息
@@ -208,7 +208,7 @@ public class Core {
 		json.put("fromGroup", fromGroup);
 		json.put("msg", msg);
 		json.put("anonymous", anonymous);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -229,7 +229,7 @@ public class Core {
 		json.put("seq", seq);
 		json.put("status", status);
 		json.put("fromType", fromType);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -246,7 +246,7 @@ public class Core {
 		json.put("fromGroup", fromGroup);
 		json.put("fromQQ", fromQQ);
 		json.put("cardName", cardName);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	/**
 	 * 删除群成员
@@ -262,7 +262,7 @@ public class Core {
 		json.put("fromGroup", fromGroup);
 		json.put("fromQQ", fromQQ);
 		json.put("refuse", refuse);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -279,7 +279,7 @@ public class Core {
 		json.put("fromGroup", fromGroup);
 		json.put("fromQQ", fromQQ);
 		json.put("second", second);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	/**
 	 * 撤回群消息
@@ -295,7 +295,7 @@ public class Core {
 		json.put("fromGroup", fromGroup);
 		json.put("random", random);
 		json.put("req", req);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -316,7 +316,7 @@ public class Core {
 		json.put("msg", msg);
 		json.put("random", random);
 		json.put("seq", seq);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -337,7 +337,7 @@ public class Core {
 		json.put("balance", balance);
 		json.put("payPwd", payPwd);
 		json.put("msg", msg);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	/**
 	 * 全员禁言
@@ -351,7 +351,7 @@ public class Core {
 		json.put("selfQQ", selfQQ);
 		json.put("fromGroup", fromGroup);
 		json.put("isOpen", isOpen);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -362,7 +362,7 @@ public class Core {
 		JSONObject json = new JSONObject();
 		json.put("type", 212);
 		json.put("selfQQ", selfQQ);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -375,7 +375,7 @@ public class Core {
 		json.put("type", 213);
 		json.put("selfQQ", selfQQ);
 		json.put("fromGroup", fromGroup);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -390,7 +390,7 @@ public class Core {
 		json.put("log", log);
 		json.put("fontColor", fontColor);
 		json.put("bgColor", bgColor);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -399,7 +399,7 @@ public class Core {
 	public static void selectPluginPath(){
 		JSONObject json = new JSONObject();
 		json.put("type", 302);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 	/**
@@ -418,7 +418,7 @@ public class Core {
 		json.put("fromQQ", fromQQ);
 		json.put("flash", flash);
 		json.put("pic", pic);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 
 	
@@ -440,7 +440,7 @@ public class Core {
 		json.put("t", t);
 		json.put("sync", true);
 		StringUtils.queue.put(t, json);
-		Main.clientTest.sendMsg(json.toJSONString());
+		sbMain.clientTest.sendMsg(json.toJSONString());
 	}
 	
 

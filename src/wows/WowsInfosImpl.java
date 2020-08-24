@@ -163,12 +163,12 @@ public class WowsInfosImpl implements WowsInfos {
         double win_servived_rate = survived_wins * 1.0 / wins;
 
 
-
+        //我踏马再用double我就是nt……
         DecimalFormat df= new DecimalFormat("######0.000");
         hit_rate = Double.parseDouble(df.format(hit_rate)) * 100;
         sen_hit_rate = Double.parseDouble(df.format(sen_hit_rate)) * 100;
         torpedoes_rate = Double.parseDouble(df.format(torpedoes_rate)) * 100;
-        survived_rate = Double.parseDouble(df.format(survived_rate)) * 100;
+        String survived_rate1 = String.valueOf(df.format(survived_rate* 100));
         KD = Double.parseDouble(df.format(KD));
         win_rate = Double.parseDouble(df.format(win_rate)) * 100;
         win_servived_rate = Double.parseDouble(df.format(win_servived_rate)) * 100;
@@ -185,8 +185,8 @@ public class WowsInfosImpl implements WowsInfos {
         player.damage = damage;
         player.die = die;
         player.frags = frags;
-        player.hit_rate = hit_rate;
-        player.KD = KD;
+        player.hit_rate = String.valueOf(hit_rate);
+        player.KD = String.valueOf(KD);
         player.losses = losses;
         player.max_damage_boat_id = max_damage_boat_id;
         player.max_damage_dealt = max_damage_dealt;
@@ -197,15 +197,15 @@ public class WowsInfosImpl implements WowsInfos {
         player.name_max_damage_boat_id = name_max_damage_boat_id;
         player.name_max_frags_boat_id = name_max_frags_boat_id;
         player.name_torpedoes_max_frags_ship_id = name_torpedoes_max_frags_ship_id;
-        player.sen_hit_rate = sen_hit_rate;
-        player.survived_rate = survived_rate;
+        player.sen_hit_rate = String.valueOf(sen_hit_rate);
+        player.survived_rate = survived_rate1;
         player.survived_wins = survived_wins;
         player.survivedBattles = survivedBattles;
         player.torpedoes_max_frags_battle = torpedoes_max_frags_battle;
         player.torpedoes_max_frags_ship_id = torpedoes_max_frags_ship_id;
-        player.torpedoes_rate = torpedoes_rate;
-        player.win_rate =win_rate;
-        player.win_servived_rate = win_servived_rate;
+        player.torpedoes_rate = String.valueOf(torpedoes_rate);
+        player.win_rate =String.valueOf(win_rate);
+        player.win_servived_rate = String.valueOf(win_servived_rate);
         player.wins = wins;
 
 

@@ -6,16 +6,21 @@ import pic.pic;
 import wows.Playerpackage;
 import pic.Getpic;
 
+import java.io.IOException;
+import java.net.SocketException;
 import java.util.concurrent.TimeUnit;
 
-
+//涩图启动类
 /**
  * 主要类
  * @author zhaoqk
  *
  * 2020年8月10日 下午5:07:37
  */
-public class Main {
+public class setuMain {
+	public static long selfQQ=0;
+	public static long fromGroup=0;
+	public static long fromQQ=0;
 
 	/**
 	 * 程序简介
@@ -42,11 +47,12 @@ public class Main {
 	 * @param data
 	 */
 	public static void receivePrivateMessages(String data){
+
 		System.out.println("[收到好友消息]" + data);
 		try{
 			JSONObject json = JSONObject.parseObject(data);
-			long selfQQ = json.getInteger("selfQQ");//框架QQ
-			long fromQQ = json.getInteger("fromQQ");//对方QQ
+			selfQQ = json.getInteger("selfQQ");//框架QQ
+			fromQQ = json.getInteger("fromQQ");//对方QQ
 			long random = json.getInteger("random");//撤回消息用
 			long req = json.getInteger("req");//撤回消息用
 			String msg = json.getString("msg");//消息内容
@@ -90,12 +96,14 @@ public class Main {
 	 */
 	public static void receiveGroupMessages(String data){
 		System.out.println("[收到群聊消息]" + data);
+
+		String msg;
 		try{
 			JSONObject json = JSONObject.parseObject(data);
-			long selfQQ = json.getInteger("selfQQ");//框架QQ
-			long fromGroup = json.getInteger("fromGroup");//群号
-			long fromQQ = json.getInteger("fromQQ");//对方QQ
-			String msg = json.getString("msg");//消息内容
+			selfQQ = json.getInteger("selfQQ");//框架QQ
+			fromGroup = json.getInteger("fromGroup");//群号
+			fromQQ = json.getInteger("fromQQ");//对方QQ
+			msg = json.getString("msg");//消息内容
 			//这里我写了一些常用指令
 			if (msg.equals("setu")){
 				pic pic = Getpic.doGet("https://api.lolicon.app/setu/?apikey=232368045f2bc262c4e5e4&size1200=true", "");
@@ -126,13 +134,14 @@ public class Main {
 					TimeUnit.SECONDS.sleep(5);
 				}
 				Core.sendGroupMessages(selfQQ,fromGroup,"setu已发送完成，显示多少听天由命~",0);
+
 			}else if (msg.equals("发完了吗")){
 				Core.sendGroupMessages(selfQQ,fromGroup,"嗯哼~",0);
 			}
 
-		}catch (Exception e) {
-
+		}catch (Exception e){
 			System.out.println("[群聊数据异常]");
+			e.printStackTrace();
 		}
 		//134	上传群文件
 
