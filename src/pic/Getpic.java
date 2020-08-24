@@ -83,6 +83,7 @@ public class Getpic {
             JSONObject obj1 = jsonArray.getJSONObject(0);
             pic = JSONObject.parseObject(String.valueOf(obj1),pic.class);
             System.out.println("完成5");
+
 //            System.out.println("开始转换base64");
 //            result = URLbase64.image2Base64(new URL(pic.getUrl()));
 //            System.out.println("base64转化完成");
