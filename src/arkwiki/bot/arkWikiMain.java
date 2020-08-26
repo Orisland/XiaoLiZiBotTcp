@@ -119,6 +119,7 @@ public class arkWikiMain {
 			}
 
 		}catch (Exception e){
+			Core.sendGroupMessages(selfQQ,fromGroup,"超时，请稍后再试。",0);
 			System.out.println("[群聊数据异常]");
 			e.printStackTrace();
 		}
