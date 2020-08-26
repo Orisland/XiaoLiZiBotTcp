@@ -100,6 +100,11 @@ public class sbMain {
 			String msg = json.getString("msg");//消息内容
 			//这里我写了一些常用指令
 			if (msg.indexOf("查水表") == 0){
+				if(msg.split( " ").length != 2){
+					Core.sendGroupMessages(selfQQ,fromGroup,"水表格式错误，请修正。",0);
+					Core.sendGroupMessages(selfQQ,fromGroup,"别忘了空格哦~",0);
+					return;
+				}
 				Core.sendGroupMessages(selfQQ,fromGroup,"正在尝试获取数据~请稍后~",0);
 				Playerpackage playerpackage = new Playerpackage(msg);
 				String atqq = "[@"+fromQQ+"]来了来了~" + "\r";
@@ -110,6 +115,7 @@ public class sbMain {
 			}
 
 		}catch (Exception e) {
+			Core.sendGroupMessages(selfQQ,fromGroup,"查询用户不存在或网络超时，请重试。",0);
 			System.out.println("[群聊数据异常]");
 		}
 		//134	上传群文件
