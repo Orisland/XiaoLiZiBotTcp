@@ -5,6 +5,7 @@ import com.sun.java.swing.plaf.windows.resources.windows;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
@@ -22,6 +23,8 @@ public class doc {
         System.setProperty("webdriver.chrome.driver", "C:\\酷Q Pro\\Application\\chromedriver.exe");
         WebDriver driver=null;
         String pic="";
+        //ChromeDriverService service = new ChromeDriverService.Builder().usingDriverExecutable(new File("C:\\酷Q Pro\\Application\\chromedriver.exe")).usingAnyFreePort().build();
+        //尝试使用其他方式来进行操作
         try{
             ChromeOptions chromeOptions=new ChromeOptions();
             chromeOptions.addArguments("-headless");
@@ -51,7 +54,7 @@ public class doc {
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            driver.close();
+            driver.quit();      //不能close，否则chromedriver进程仍然存在。
         }
 
         return pic;

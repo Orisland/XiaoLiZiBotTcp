@@ -106,6 +106,7 @@ public class setuMain {
 			msg = json.getString("msg");//消息内容
 			//这里我写了一些常用指令
 			if (msg.equals("setu")){
+				Core.sendGroupMessages(selfQQ,fromGroup,"正在翻车钥匙~",0);
 				pic pic = Getpic.doGet("https://api.lolicon.app/setu/?apikey=232368045f2bc262c4e5e4&size1200=true", "");
 				String url = "[netpic:"+ pic.getUrl() + "]";
 				String picPid = "图片id："+pic.getPid();
@@ -113,6 +114,7 @@ public class setuMain {
 				String picwriter = "作者："+pic.getAuthor();
 				String pack = url+"\n"+picPid+"\n"+picwriter+"\n"+picurl;
 				Core.sendGroupMessagesPicText(selfQQ, fromGroup, pack,0);
+				Core.sendGroupMessages(selfQQ,fromGroup,"发车完毕~",0);
 			}else if (msg.indexOf("涩图组") == 0){
 				int num = Integer.parseInt(msg.substring(msg.indexOf("涩图组") + 3));
 				if (num >5){
