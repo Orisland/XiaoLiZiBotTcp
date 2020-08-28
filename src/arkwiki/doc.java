@@ -18,37 +18,41 @@ import java.util.concurrent.TimeUnit;
 
 public class doc {
 
-    public static String docbase64(String juse, int i) throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
-        WebDriver driver;
-        ChromeOptions chromeOptions=new ChromeOptions();
-        chromeOptions.addArguments("-headless");
-        driver = new ChromeDriver(chromeOptions);
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        String url1 = "http://prts.wiki/w/";
-        String url2 = "#.E5.90.8E.E5.8B.A4.E6.8A.80.E8.83.BD";
-        String url;
-        if (i == 1){
-            url = url1 + juse;
-            driver.manage().window().setSize(new Dimension(900,6700));
-            Core.sendGroupMessages(arkWikiMain.selfQQ,arkWikiMain.fromGroup,"长图模式~",0);
+    public static String docbase64(String juse, int i) {
+        System.setProperty("webdriver.chrome.driver", "C:\\酷Q Pro\\Application\\chromedriver.exe");
+        WebDriver driver=null;
+        String pic="";
+        try{
+            ChromeOptions chromeOptions=new ChromeOptions();
+            chromeOptions.addArguments("-headless");
+            driver = new ChromeDriver(chromeOptions);
+            driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+            String url1 = "http://prts.wiki/w/";
+            String url2 = "#.E5.90.8E.E5.8B.A4.E6.8A.80.E8.83.BD";
+            String url;
+            if (i == 1){
+                url = url1 + juse;
+                driver.manage().window().setSize(new Dimension(900,6700));
+                Core.sendGroupMessages(arkWikiMain.selfQQ,arkWikiMain.fromGroup,"长图模式~",0);
+            }
+            else {
+                url = url1+juse+url2;
+                driver.manage().window().setSize(new Dimension(900,1200));
+                Core.sendGroupMessages(arkWikiMain.selfQQ,arkWikiMain.fromGroup,"区域模式~",0);
+            }
+            System.out.println("加载页面");
+            driver.get(url);
+            //((JavascriptExecutor)driver).executeScript("document.body.style.zoom='0.9'");
+            ((JavascriptExecutor)driver).executeScript("window.scrollBy(100,0)");
+            System.out.println("chrome页面加载");
+            Thread.sleep(3000);
+            pic = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BASE64);
+            System.out.println("转化完毕");
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            driver.close();
         }
-        else {
-            url = url1+juse+url2;
-            driver.manage().window().setSize(new Dimension(900,1200));
-            Core.sendGroupMessages(arkWikiMain.selfQQ,arkWikiMain.fromGroup,"区域模式~",0);
-        }
-        System.out.println(url);
-        System.out.println("加载页面");
-        driver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
-        driver.get(url);
-        //((JavascriptExecutor)driver).executeScript("document.body.style.zoom='0.9'");
-        ((JavascriptExecutor)driver).executeScript("window.scrollBy(100,0)");
-        System.out.println("chrome页面加载");
-        Thread.sleep(3000);
-        String pic = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BASE64);
-        System.out.println("转化完毕");
-        driver.close();
 
         return pic;
     }
