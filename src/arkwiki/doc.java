@@ -90,7 +90,7 @@ public class doc {
 //        }
         //System.out.println(driver.getPageSource());
         driver.manage().deleteAllCookies();
-        driver.close();
+        driver.quit();
 
 
 //        try {

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import pic.Getpic;
 import pic.pic;
 import wows.Playerpackage;
+import wows.Chart;
 
 import java.util.Base64;
 import java.util.concurrent.TimeUnit;
@@ -101,8 +102,8 @@ public class sbMain {
 			//这里我写了一些常用指令
 			if (msg.indexOf("查水表") == 0){
 				if(msg.split( " ").length != 2){
-					Core.sendGroupMessages(selfQQ,fromGroup,"水表格式错误，请修正。",0);
-					Core.sendGroupMessages(selfQQ,fromGroup,"别忘了空格哦~",0);
+					Core.sendGroupMessages(selfQQ,fromGroup,"命令格式错误，请修正。",0);
+					Core.sendGroupMessages(selfQQ,fromGroup,"0：全图模式  1：区域模式",0);
 					return;
 				}
 				Core.sendGroupMessages(selfQQ,fromGroup,"正在尝试获取数据~请稍后~",0);
@@ -112,6 +113,19 @@ public class sbMain {
 				Core.sendGroupMessages(selfQQ,fromGroup,"最后的图片显示需要手动开启~",0);
 				System.out.println(playerpackage.getPic());
 				Core.sendGroupMessagesPicText(selfQQ, fromGroup, playerpackage.getPic(), 0);
+			}else if (msg.indexOf("表单")==0){
+				if (msg.split(" ").length < 2){
+					Core.sendGroupMessages(selfQQ,fromGroup,"命令格式错误，请修正。",0);
+					Core.sendGroupMessages(selfQQ,fromGroup,"别忘了空格哦~",0);
+					return;
+				}
+				Core.sendGroupMessages(selfQQ,fromGroup,"正在尝试获取数据~请稍后~",0);
+				String base64 = Chart.chart(msg);
+				if (base64.equals("?")){
+					return;
+				}
+				String atqq = "[@"+fromQQ+"]来了来了~" + "\r";
+				Core.sendGroupMessagesPicText(selfQQ,fromGroup,atqq + "[pic:"+base64+"]",0);
 			}
 
 		}catch (Exception e) {

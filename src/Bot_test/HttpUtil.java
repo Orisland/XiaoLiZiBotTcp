@@ -52,7 +52,9 @@ public class HttpUtil {
 		URL url;
 		try {
 			 url = new URL(str);
-			 URLConnection urlConnection = url.openConnection(); 
+			 URLConnection urlConnection = url.openConnection();
+			 urlConnection.setConnectTimeout(20*1000);
+			 urlConnection.setReadTimeout(20*1000);
 			 urlConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0");
 			 urlConnection.addRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 			 urlConnection.addRequestProperty("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
