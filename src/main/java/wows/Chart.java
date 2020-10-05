@@ -15,15 +15,24 @@ import java.util.concurrent.TimeUnit;
 
 public class Chart {
 
-    public static String chart(String msg){
+    public static String chart(String msg,int key){
         String username = msg.split(" ")[1];
         String flag = msg.split(" ")[2];
         String base64 = "";
+        String id;
 
         WowsInfosImpl wowsInfos = new WowsInfosImpl();
-        String id = wowsInfos.getUserId(username);
-        String url0 = "";
+        if (key == 0){
+            System.out.println("欧服模式");
+            id = wowsInfos.getUserId(username,0);
+        }
+        else {
+            System.out.println("亚服模式");
+            id = wowsInfos.getUserId(username,1);
+        }
 
+        String url0 = "";
+        //System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", "C:\\Application\\chromedriver.exe");
         WebDriver driver=null;
 
@@ -31,17 +40,24 @@ public class Chart {
             ChromeOptions chromeOptions=new ChromeOptions();
             chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("--disable-gpu");
+            //chromeOptions.addArguments("--user-data-dir=C:\\Users\\Orisland\\AppData\\Local\\Google\\Chrome\\User Data\\Default");
             chromeOptions.addArguments("--user-data-dir=C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Default");
             driver = new ChromeDriver(chromeOptions);
             if (flag.equals("1") || flag.equals("0")){
                 if (flag.equals("0")){
                     Core.sendGroupMessages(sbMain.selfQQ,sbMain.fromGroup,"总表模式",0);
                     url0 = "https://wows-numbers.com/player/";
+                    if (key == 1){
+                        url0 = "https://asia.wows-numbers.com/player/";
+                    }
                     driver.manage().window().setSize(new Dimension(1920,9100));
                 }
                 if (flag.equals("1")){
                     Core.sendGroupMessages(sbMain.selfQQ,sbMain.fromGroup,"小表模式",0);
                     url0 = "https://wows-numbers.com/player/charts/";
+                    if (key == 1){
+                        url0 = "https://asia.wows-numbers.com/player/charts/";
+                    }
                     driver.manage().window().setSize(new Dimension(1920,2600));
                 }
             }

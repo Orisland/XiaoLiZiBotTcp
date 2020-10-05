@@ -5,12 +5,22 @@ package wows;
 public class Playerpackage {
     String spackage = "";
     String pic;
-    public Playerpackage(String msg){
+    public Playerpackage(String msg, int flag){
         WowsInfosImpl tst = new WowsInfosImpl();
         String[] msgSplit = msg.split( " ");
-        String uid = tst.getUserId(msgSplit[1]);
+        String uid;
+        player player = null;
         System.out.println("查水表进程启动");
-        player player = tst.getUserBasicInfo(uid);
+        if (flag == 0){
+            uid = tst.getUserId(msgSplit[1],0);
+            System.out.println("欧服模式");
+            player = tst.getUserBasicInfo(uid, 0);
+        }
+        else {
+            uid = tst.getUserId(msgSplit[1],1);
+            System.out.println("亚服模式");
+            player = tst.getUserBasicInfo(uid, 1);
+        }
         System.out.println("用户数据获取完成");
         spackage += "查询id："+player.nickname+"\n";
         spackage += "战斗场数："+player.battles + "\n";

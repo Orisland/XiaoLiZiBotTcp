@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class doc {
 
     public static String docbase64(String juse, int i) {
-        System.setProperty("webdriver.chrome.driver", "C:\\ø·Q Pro\\Application\\chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "C:\\ø·Q Pro\\Application\\chromedriver.exe");
         WebDriver driver=null;
         String pic="";
         //ChromeDriverService service = new ChromeDriverService.Builder().usingDriverExecutable(new File("C:\\ø·Q Pro\\Application\\chromedriver.exe")).usingAnyFreePort().build();

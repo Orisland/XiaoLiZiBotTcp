@@ -18,9 +18,9 @@ import java.util.concurrent.TimeUnit;
  * 2020年8月10日 下午5:07:37
  */
 public class sbMain {
-	public static long selfQQ=0;
-	public static long fromGroup=0;
-	public static long fromQQ=0;
+	public static long selfQQ=0L;
+	public static long fromGroup=0L;
+	public static long fromQQ=0L;
 
 	/**
 	 * 程序简介
@@ -71,7 +71,15 @@ public class sbMain {
 
 			}else if(msgType == 166){//普通好友消息
 				if (msg.indexOf("查水表") == 0) {
-					Playerpackage playerpackage = new Playerpackage(msg);
+					if (msg.split(" ").length != 2) {
+						Core.sendPrivateMessages(selfQQ, fromQQ, "命令格式错误，请修正。", random, req);
+						Core.sendPrivateMessages(selfQQ, fromGroup, "别忘了空格哦~", random, req);
+						return;
+					}
+					Core.sendPrivateMessages(selfQQ, fromGroup, "正在尝试获取数据~请稍后~", random, req);
+					//Playerpackage playerpackage = new Playerpackage(msg);
+					String atqq = "[@" + fromQQ + "]来了来了~" + "\r";
+					//Core.sendPrivateMessages(selfQQ, fromGroup, playerpackage.getSpackage(), random, req);
 				}
 				else {
 					msg += "~";
@@ -95,41 +103,74 @@ public class sbMain {
 		System.out.println("[收到群聊消息]" + data);
 		try{
 			JSONObject json = JSONObject.parseObject(data);
-			selfQQ = json.getInteger("selfQQ");//框架QQ
-			fromQQ = json.getInteger("fromQQ");//对方QQ
-			fromGroup = json.getInteger("fromGroup");//群号
+			selfQQ = json.getLong("selfQQ");//框架QQ
+			fromQQ = json.getLong("fromQQ");//对方QQ
+			fromGroup = json.getLong("fromGroup");//群号
 			String msg = json.getString("msg");//消息内容
 			//这里我写了一些常用指令
-			if (msg.indexOf("查水表") == 0){
+			if (msg.indexOf("欧服水表") == 0){
 				if(msg.split( " ").length != 2){
-					Core.sendGroupMessages(selfQQ,fromGroup,"命令格式错误，请修正。",0);
-					Core.sendGroupMessages(selfQQ,fromGroup,"0：全图模式  1：区域模式",0);
-					return;
-				}
-				Core.sendGroupMessages(selfQQ,fromGroup,"正在尝试获取数据~请稍后~",0);
-				Playerpackage playerpackage = new Playerpackage(msg);
-				String atqq = "[@"+fromQQ+"]来了来了~" + "\r";
-				Core.sendGroupMessages(selfQQ,fromGroup,atqq + playerpackage.getSpackage(),0);
-				Core.sendGroupMessages(selfQQ,fromGroup,"最后的图片显示需要手动开启~",0);
-				System.out.println(playerpackage.getPic());
-				Core.sendGroupMessagesPicText(selfQQ, fromGroup, playerpackage.getPic(), 0);
-			}else if (msg.indexOf("表单")==0){
-				if (msg.split(" ").length < 2){
 					Core.sendGroupMessages(selfQQ,fromGroup,"命令格式错误，请修正。",0);
 					Core.sendGroupMessages(selfQQ,fromGroup,"别忘了空格哦~",0);
 					return;
 				}
 				Core.sendGroupMessages(selfQQ,fromGroup,"正在尝试获取数据~请稍后~",0);
-				String base64 = Chart.chart(msg);
+				Playerpackage playerpackage = new Playerpackage(msg,0);
+				String atqq = "[@"+fromQQ+"]来了来了~" + "\r";
+				Core.sendGroupMessages(selfQQ,fromGroup,atqq + playerpackage.getSpackage(),0);
+				Core.sendGroupMessages(selfQQ,fromGroup,"最后的图片显示需要手动开启~",0);
+				System.out.println(playerpackage.getPic());
+				Core.sendGroupMessagesPicText(selfQQ, fromGroup, playerpackage.getPic(), 0);
+			}else if(msg.indexOf("亚服水表") == 0){
+				if(msg.split( " ").length != 2){
+					Core.sendGroupMessages(selfQQ,fromGroup,"命令格式错误，请修正。",0);
+					Core.sendGroupMessages(selfQQ,fromGroup,"别忘了空格哦~",0);
+					return;
+				}
+				Core.sendGroupMessages(selfQQ,fromGroup,"正在尝试获取数据~请稍后~",0);
+				Playerpackage playerpackage = new Playerpackage(msg,1);
+				String atqq = "[@"+fromQQ+"]来了来了~" + "\r";
+				Core.sendGroupMessages(selfQQ,fromGroup,atqq + playerpackage.getSpackage(),0);
+				Core.sendGroupMessages(selfQQ,fromGroup,"最后的图片显示需要手动开启~",0);
+				System.out.println(playerpackage.getPic());
+				Core.sendGroupMessagesPicText(selfQQ, fromGroup, playerpackage.getPic(), 0);
+			}else if (msg.indexOf("欧服表单")==0){
+				if (msg.split(" ").length < 2){
+					Core.sendGroupMessages(selfQQ,fromGroup,"命令格式错误，请修正。",0);
+					Core.sendGroupMessages(selfQQ,fromGroup,"0：全图模式  1：区域模式",0);
+					return;
+				}
+				Core.sendGroupMessages(selfQQ,fromGroup,"正在尝试获取数据~请稍后~",0);
+				String base64 = Chart.chart(msg,0);
 				if (base64.equals("?")){
 					return;
 				}
 				String atqq = "[@"+fromQQ+"]来了来了~" + "\r";
 				Core.sendGroupMessagesPicText(selfQQ,fromGroup,atqq + "[pic:"+base64+"]",0);
+			}else if (msg.indexOf("亚服表单")==0){
+				if (msg.split(" ").length < 2){
+					Core.sendGroupMessages(selfQQ,fromGroup,"命令格式错误，请修正。",0);
+					Core.sendGroupMessages(selfQQ,fromGroup,"0：全图模式  1：区域模式",0);
+					return;
+				}
+				Core.sendGroupMessages(selfQQ,fromGroup,"正在尝试获取数据~请稍后~",0);
+				String base64 = Chart.chart(msg,1);
+				if (base64.equals("?")){
+					return;
+				}
+				String atqq = "[@"+fromQQ+"]来了来了~" + "\r";
+				Core.sendGroupMessagesPicText(selfQQ,fromGroup,atqq + "[pic:"+base64+"]",0);
+			}else if (msg.equals("水表功能")){
+				Core.sendGroupMessages(selfQQ,fromGroup,"[pic,hash=B9433B085F1C592C29137BDE4FEAD556]",0);
+			}else if (msg.equals("表单功能")){
+				Core.sendGroupMessages(selfQQ,fromGroup,"[pic,hash=9640C8A87A25B56B6F0BC0C354BD3944]",0);
+			}else if (msg.equals("wows功能")){
+				Core.sendGroupMessages(selfQQ,fromGroup,"输入“水表功能”获取水表功能帮助！\r输入“表单功能”获取水表功能帮助！",0);
 			}
 
 		}catch (Exception e) {
 			Core.sendGroupMessages(selfQQ,fromGroup,"查询用户不存在或网络超时，请重试。",0);
+			Core.sendGroupMessages(selfQQ,fromGroup,"请选择正确的区服信息，具体格式请发送“wows功能”指令",0);
 			System.out.println("[群聊数据异常]");
 		}
 		//134	上传群文件

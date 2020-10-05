@@ -1,23 +1,11 @@
 package NvZhuang;
 
-public class Jiaoge {
-    public static void main(String[] args) {
-        final long time = 14400;
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                while (true){
-                    System.out.println("start");
-                    try {
-                        Thread.sleep(time);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
+import NvZhuang.bot.Core;
+import NvZhuang.bot.NvMain;
 
-        Thread thread = new Thread(runnable);
-        thread.run();
+public class Jiaoge {
+    public static void main(String[] args) throws InterruptedException {
+
+
     }
 }

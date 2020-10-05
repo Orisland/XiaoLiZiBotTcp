@@ -1,6 +1,7 @@
 package talk;
 
 import com.alibaba.fastjson.*;
+import com.mysql.cj.xdevapi.JsonArray;
 import talk.DAO.manage;
 
 import java.sql.SQLException;
@@ -23,8 +24,18 @@ public class Data {
         }
     }
 
+    public int find(JsonArray jsonValues){
+        int i=0;
+        for (int j=0; j<jsonValues.size(); j++){
+
+        }
+
+        return 1;
+    }
+
     public static void main(String[] args) throws SQLException {
         Data data = new Data();
         System.out.println(data.jsonArray.toString());
+        System.out.println(data.jsonArray.size());
     }
 }

@@ -1,15 +1,15 @@
-package NvZhuang.bot;
+package yunshi.bot;
 
-import NvZhuang.demo;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.omg.CORBA.CODESET_INCOMPATIBLE;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-//涩图启动类
+import yunshi.yunshi;
 
 /**
  * 主要类
@@ -17,11 +17,13 @@ import java.util.concurrent.TimeUnit;
  *
  * 2020年8月10日 下午5:07:37
  */
-public class NvMain {
+public class yunshiMain {
 	public static long selfQQ=0;
 	public static long fromGroup=0;
 	public static long fromQQ=0;
-
+	public static long[] qqnum = new long[100];
+	//
+	/**/
 	/**
 	 * 程序简介
 	 * 1.如果我需要的事件下面没有怎么办？
@@ -84,7 +86,7 @@ public class NvMain {
 		}catch (Exception e) {
 			System.out.println("[好友数据异常]");
 		}
-
+		
 		//红包发送成功  "msgType":141,"msgType2":134,"msgTempType":129
 		//87	好友邀请入群
 		//528	申请加为好友
@@ -96,7 +98,7 @@ public class NvMain {
 	 */
 	public static void receiveGroupMessages(String data){
 		System.out.println("[收到群聊消息]" + data);
-		final long time = 21600;
+
 		String msg;
 		try{
 			JSONObject json = JSONObject.parseObject(data);
@@ -106,34 +108,47 @@ public class NvMain {
 			msg = json.getString("msg");//消息内容
 
 			//这里我写了一些常用指令
-			if (fromQQ == 756176532 && msg.equals("进程启动")){
+			if (msg.equals("今日运势")){
+				String chouqian = yunshi.rand(fromQQ,qqnum);
+				if (chouqian.equals("EOF")){
+					Core.sendGroupMessages(selfQQ,fromGroup,"宁今天已经抽过了哦!请明天再来。",0);
+					return;
+				}
+				chouqian = "[@"+fromQQ+"]\r"+chouqian;
+				Core.sendGroupMessages(selfQQ,fromGroup,chouqian,0);
+			}else if (msg.equals("明日运势")){
+				Core.sendGroupMessages(selfQQ,fromGroup,"那明天再来哦~",0);
+			}else if (msg.equals("昨日运势")){
+				Core.sendGroupMessages(selfQQ,fromGroup,"[pic,hash=2F85896EF703746299458EB0D1ECD5E6]",0);
+				Core.sendGroupMessages(selfQQ,fromGroup,"??你给我爬.",0);
+			}else if (msg.equals("明年运势")){
+				Core.sendGroupMessages(selfQQ,fromGroup,"[pic,hash=42A1117060091841F5913D671D3FBEB7]",0);
+				Core.sendGroupMessages(selfQQ,fromGroup,"抽卡保底，角色全歪.",0);
+			}else if (msg.equals("去年运势")){
+				Core.sendGroupMessages(selfQQ,fromGroup,"[pic,hash=42A1117060091841F5913D671D3FBEB7]",0);
+				Core.sendGroupMessages(selfQQ,fromGroup,"爬.",0);
+			}else if (msg.equals("今年运势")){
+				Core.sendGroupMessages(selfQQ,fromGroup,"宁没有权限查询此数据库.",0);
+			}else if (msg.equals("运势进程启动")){
+				Core.sendGroupMessages(selfQQ,fromGroup,"运势刷新进程启动！",0);
 				Date startDate = new Date();
 				Date endDate = new Date();
 				endDate.setTime(startDate.getTime() + 500000000 + 500000000 + 500000000 + 500000000 + 500000000 + 500000000 + 500000000 + 500000000);
 				SchedulerFactory schedulerFactory = new StdSchedulerFactory();
 				Scheduler scheduler = schedulerFactory.getScheduler();
-				JobDetail jobDetail = JobBuilder.newJob(demo.class).usingJobData("jobDetail1", "这个Job用来测试的")
+				JobDetail jobDetail = JobBuilder.newJob(yunshi.class).usingJobData("jobDetail1", "这个Job用来测试的")
 						.withIdentity("job1", "groups1").build();
 
 				CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("trigger1", "triggerGroup1")
 						.usingJobData("trigger1", "这是jobDetail1的trigger")
 						.startNow()//立即生效
 						.endAt(endDate)
-						.withSchedule(CronScheduleBuilder.cronSchedule("0 0 0,6,12,18 * * ?"))
+						.withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ? "))
 						.build();
 
 				scheduler.scheduleJob(jobDetail, cronTrigger);
-				Core.sendGroupMessages(selfQQ,1007248323,"催焦哥女装进程启动!",0);
 				System.out.println("==========start=========");
 				scheduler.start();
-//
-//				TimeUnit.MINUTES.sleep(1);
-//				scheduler.shutdown();
-//				System.out.println("======shut down======");
-			}else if (fromQQ != 756176532 && msg.equals("进程启动")){
-				Core.sendGroupMessages(selfQQ,fromGroup,"宁没有权限启动该指令呢！",0);
-			}else if (msg.equals("进程关闭") || msg.equals("关闭进程")){
-				Core.sendGroupMessages(selfQQ,fromGroup,"这个人太懒了，压根没写关闭，关闭让他去后台。",0);
 			}
 
 		}catch (Exception e){
