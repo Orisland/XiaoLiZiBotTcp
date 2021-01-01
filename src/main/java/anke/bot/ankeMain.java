@@ -100,16 +100,45 @@ public class ankeMain {
 			long fromGroup = json.getInteger("fromGroup");//群号
 			long fromQQ = json.getInteger("fromQQ");//对方QQ
 			String fromGroupName = json.getString("fromGroupName");	//qq群名
+			String fromqqname = json.getString("fromQQName");
 			String msg = json.getString("msg");//消息内容
 			//这里我写了一些常用指令
 			if(msg.indexOf("改名片") == 0){//默认改自己的 如  改名片404
 
-			}else if ((msg.indexOf(":") == msg.length()-1 || msg.indexOf("：") == msg.length()-1) && flag){
-				anke anke = new anke();
-				//ankeflag 默认1,默认选范围数字
-				anke.ankeout(msg,selfQQ,fromGroup,ankeflag);
+			}else if ((msg.indexOf(":") == msg.length()-1 || msg.indexOf("：") == msg.length()-1) && (!msg.contains("+") && !msg.contains("-"))){
+				if (!msg.contains("d")){
+					return;
+				}
+				if (group.get(String.valueOf(fromGroup)) == null){
+					return;
+				}else if (!group.getJSONObject(String.valueOf(fromGroup)).getBooleanValue("onff")){
+					Core.sendGroupMessages(selfQQ,fromGroup,"安科已关闭!请重新开启安科!",0);
+					return;
+				}else {
+					JSONObject single = group.getJSONObject(String.valueOf(fromGroup));
+					anke anke = new anke();
+					//ankeflag 默认1,默认选范围数字
+					anke.ankeout(msg,selfQQ,fromGroup,Integer.parseInt(single.getString("ankeflag")));
+				}
+			}else if ((msg.indexOf(":") == msg.length()-1 || msg.indexOf("：") == msg.length()-1) && ((msg.contains("+") || msg.contains("-")))){
+				if (!msg.contains("d")){
+					return;
+				}
+				if (group.get(String.valueOf(fromGroup)) == null){
+					return;
+				}else if (!group.getJSONObject(String.valueOf(fromGroup)).getBooleanValue("onff")){
+					Core.sendGroupMessages(selfQQ,fromGroup,"安科已关闭!请重新开启安科!",0);
+					return;
+				}else {
+					anke anke = new anke();
+					if (msg.contains("+")){
+						anke.ankeout(msg,selfQQ,fromGroup,true);
+					}else {
+						anke.ankeout(msg,selfQQ,fromGroup,false);
+					}
 
-			}else if (msg.equals("1安科启动")){
+				}
+			}else if (msg.equals("安科启动")){
 				flag = true;
 				String str;
 				JSONObject single;
@@ -122,6 +151,7 @@ public class ankeMain {
 					single.put("onff",true);
 					single.put("groupname",fromGroupName);
 					single.put("启动人",fromQQ);
+					single.put("启动人昵称",fromqqname);
 //					group.put(String.valueOf(group),single);
 				}else {
 					single = group.getJSONObject(String.valueOf(fromGroup));
@@ -146,18 +176,48 @@ public class ankeMain {
 				Core.sendGroupMessages(selfQQ,fromGroup,"群名:"+fromGroupName +"\r安科随机数已启动!\r当前模式为："+str,0);
 			}else if (msg.equals("安科关闭")){
 				flag = false;
-				Core.sendGroupMessages(selfQQ,fromGroup,"安科随机数已关闭!",0);
-			}else if (msg.equals("安科切换")){
-				if (ankeflag == 1){
-					ankeflag = 2;
-					Core.sendGroupMessages(selfQQ,fromGroup,"安科随机数切换为\r范围随机单数!",0);
+				if (group.get(String.valueOf(fromGroup)) == null){
+					Core.sendGroupMessages(selfQQ,fromGroup,"该群没开过安科，请先打开。",0);
+					return;
 				}else {
-					ankeflag = 1;
-					Core.sendGroupMessages(selfQQ,fromGroup,"安科随机数切换为\r范围随机多数!",0);
+					JSONObject single = group.getJSONObject(String.valueOf(fromGroup));
+					single.put("onff",false);
+					group.put(String.valueOf(fromGroup),single);
+					Core.sendGroupMessages(selfQQ,fromGroup,"安科随机数已关闭!",0);
 				}
-
-			}else if (msg.equals("anke")){
+			}else if (msg.equals("安科切换")){
+				if (group.get(String.valueOf(fromGroup)) == null){
+					Core.sendGroupMessages(selfQQ,fromGroup,"该群没开过安科，请先打开。",0);
+					return;
+				}else {
+					JSONObject single = group.getJSONObject(String.valueOf(fromGroup));
+					String ankeflag = single.getString("ankeflag");
+					System.out.println(single);
+					if (ankeflag.equals("1")){
+						single.put("ankeflag","2");
+						group.put(String.valueOf(fromGroup),single);
+						Core.sendGroupMessages(selfQQ,fromGroup,"安科随机数切换为\r范围随机单数!",0);
+					}else {
+						single.put("ankeflag","1");
+						group.put(String.valueOf(fromGroup),single);
+						Core.sendGroupMessages(selfQQ,fromGroup,"安科随机数切换为\r范围随机多数!",0);
+					}
+				}
+			}else if (msg.equals("anke") && fromQQ == 756176532){
 				Core.sendGroupMessages(selfQQ,fromGroup,group.toJSONString(),0);
+			}else if (msg.equals("data del") && fromQQ == 756176532){
+				group = new JSONObject();
+				Core.sendGroupMessages(selfQQ,fromGroup,"json清空",0);
+			}else if (msg.equals("安科功能")){
+				String res = "";
+				res += "简易安科插件功能:\n";
+				res += "发送指令：安科启动(关闭)\n";
+				res += "xdy: (x为任意整数字,要求y>=x,否则请求会被终止)\n";
+//				res += "举例：10d20:  将会发送10到20之间的随机一个数字\n";
+				res += "xdy+z: (加号可改为减号)\n";
+//				res += "举例：10d20-100:   将会发送10到20之间并减100的数字";
+				System.out.println(res);
+				Core.sendGroupMessages(selfQQ,fromGroup,res,0);
 			}
 
 		}catch (Exception e) {
